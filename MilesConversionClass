@@ -1,0 +1,93 @@
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+public class MilesConversion extends JFrame implements ActionListener {
+    private JTextArea outputArea;
+    private JButton convertButton;
+    private JTextField milesField;
+
+    MilesConversion() {
+        JLabel outputLabel = null;
+        milesField = new JTextField(10);
+        milesField.setEditable(true);
+        GridBagConstraints layoutConst;
+        JLabel milesLabel;
+        JScrollPane scrollPane;
+
+        setTitle("Mile Conversion");
+
+        milesLabel = new JLabel("Miles:");
+
+        outputArea = new JTextArea(10, 15);
+        scrollPane = new JScrollPane(outputArea);
+        outputArea.setEditable(false);
+
+        convertButton = new JButton("Convert");
+        convertButton.addActionListener(this);
+
+
+
+        setLayout(new GridBagLayout());
+        layoutConst = new GridBagConstraints();
+        layoutConst.insets = new Insets(10, 10, 5, 1);
+        layoutConst.anchor = GridBagConstraints.LINE_END;
+        layoutConst.gridx = 0;
+        layoutConst.gridy = 0;
+        add(milesLabel, layoutConst);
+
+        layoutConst = new GridBagConstraints();
+        layoutConst.insets = new Insets(10, 10, 10, 10);
+        layoutConst.fill = GridBagConstraints.HORIZONTAL;
+        layoutConst.gridx = 1;
+        layoutConst.gridy = 0;
+        add(milesField, layoutConst);
+
+        layoutConst = new GridBagConstraints();
+        layoutConst.insets = new Insets(10, 10, 10, 10);
+        layoutConst.fill = GridBagConstraints.BOTH;
+        layoutConst.gridx = 2;
+        layoutConst.gridy = 0;
+        add(convertButton, layoutConst);
+
+
+        layoutConst = new GridBagConstraints();
+        layoutConst.insets = new Insets(1, 10, 10, 10);
+        layoutConst.fill = GridBagConstraints.HORIZONTAL;
+        layoutConst.gridx = 0;
+        layoutConst.gridy = 4;
+        layoutConst.gridwidth = 3;
+        add(scrollPane, layoutConst);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        double km;
+        double m;
+        double feet;
+        outputArea.setText("");
+
+        km = Double.parseDouble(milesField.getText()) * 1.60934;
+        outputArea.append("Kilometers: " + km + "\n");
+        m = Double.parseDouble(milesField.getText()) * 1609.34;
+        outputArea.append("Meters:" + m + "\n");
+        feet = Double.parseDouble(milesField.getText()) * 5280;
+        outputArea.append("Feet:" + feet + "\n");
+
+    }
+
+    public static void main(String[] args) {
+        MilesConversion frame = new MilesConversion();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
